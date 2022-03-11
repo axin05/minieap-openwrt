@@ -65,10 +65,10 @@ jobs:
           
       - name: Generate configuration file
         run: |
-          ls
+          cd ../
           tar -xf openwrt-sdk-21.02.2-x86-64_gcc-8.4.0_musl.Linux-x86_64.tar.xz
-          mv /home/runner/work/minieap-openwrt/minieap-openwrt ~/openwrt-sdk-21.02.2-x86-64_gcc-8.4.0_musl.Linux-x86_64/package
-          cd ~/openwrt-sdk-21.02.2-x86-64_gcc-8.4.0_musl.Linux-x86_64
+          mv minieap-openwrt openwrt-sdk-21.02.2-x86-64_gcc-8.4.0_musl.Linux-x86_64/package
+          cd openwrt-sdk-21.02.2-x86-64_gcc-8.4.0_musl.Linux-x86_64
           make defconfig
 
       - name: Compile firmware
