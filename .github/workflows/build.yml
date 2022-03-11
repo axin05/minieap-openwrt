@@ -72,7 +72,7 @@ jobs:
       - name: Compile firmware
         run: |
           cd openwrt-sdk-21.02.2-x86-64_gcc-8.4.0_musl.Linux-x86_64
-          make -j$(nproc) || make -j1 V=s
+          make -j$(nproc) package/minieap-openwrt/compile V=s
           echo "======================="
           echo "Space usage:"
           echo "======================="
