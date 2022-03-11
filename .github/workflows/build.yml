@@ -29,6 +29,10 @@ jobs:
     if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: no_scripts_with_respawn
     
       - name: Space cleanup
         env:
@@ -58,7 +62,7 @@ jobs:
           wget https://downloads.openwrt.org/releases/21.02.2/targets/x86/64/openwrt-sdk-21.02.2-x86-64_gcc-8.4.0_musl.Linux-x86_64.tar.xz
           tar -xf openwrt-sdk-21.02.2-x86-64_gcc-8.4.0_musl.Linux-x86_64.tar.xz
           cd openwrt-sdk-21.02.2-x86-64_gcc-8.4.0_musl.Linux-x86_64/package
-          git clone 
+          git clone https://github.com/AutoCONFIG/minieap-openwrt.git
 
       - name: Generate configuration file
         run: |
@@ -79,12 +83,6 @@ jobs:
 
           sed -i 's/^[ \t]*//g' ./.config
           make defconfig
-
-      - name: Make download
-        run: |
-          make download -j8 || make download -j1 V=s
-          rm -rf $(find ./dl/ -size -1024c)
-          df -h
 
       - name: Compile firmware
         run: |
@@ -113,17 +111,11 @@ jobs:
           name: OpenWrt_buildinfo
           path: ./artifact/buildinfo/
 
-      - name: Deliver package
+      - name: Deliver ipk
         uses: actions/upload-artifact@v2
         with:
-          name: OpenWrt_package
-          path: ./artifact/package/
-
-      - name: Deliver firmware
-        uses: actions/upload-artifact@v2
-        with:
-          name: OpenWrt_firmware
-          path: ./bin/targets/
+          name: ipk
+          path: ./bin/
 
       - name: Upload release asset
         if: github.event == 'release'
