@@ -12,7 +12,7 @@ name: minieap-make
 on:
   push:
     branches: 
-      - no_scripts_with_respawn
+      - main
   # schedule:
   #   - cron: 0 20 * * *
   release:
@@ -32,7 +32,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: no_scripts_with_respawn
+          ref: main
     
       - name: Space cleanup
         env:
