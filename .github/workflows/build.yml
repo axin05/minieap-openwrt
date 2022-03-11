@@ -59,21 +59,18 @@ jobs:
 
       - name: Prepare Openwrt SDK
         run: |
-          cd ../
           wget https://downloads.openwrt.org/releases/21.02.2/targets/x86/64/openwrt-sdk-21.02.2-x86-64_gcc-8.4.0_musl.Linux-x86_64.tar.xz
-          ls
           
       - name: Generate configuration file
         run: |
-          cd ../
           tar -xf openwrt-sdk-21.02.2-x86-64_gcc-8.4.0_musl.Linux-x86_64.tar.xz
-          mv minieap-openwrt openwrt-sdk-21.02.2-x86-64_gcc-8.4.0_musl.Linux-x86_64/package
-          cd openwrt-sdk-21.02.2-x86-64_gcc-8.4.0_musl.Linux-x86_64
+          cd openwrt-sdk-21.02.2-x86-64_gcc-8.4.0_musl.Linux-x86_64/package
+          git clone https://github.com/AutoCONFIG/minieap-openwrt.git
+          cd ../
           make defconfig
 
       - name: Compile firmware
         run: |
-          cd ../
           cd openwrt-sdk-21.02.2-x86-64_gcc-8.4.0_musl.Linux-x86_64
           make -j$(nproc) || make -j1 V=s
           echo "======================="
@@ -86,7 +83,6 @@ jobs:
 
       - name: Prepare artifact
         run: |
-          cd ../
           cd openwrt-sdk-21.02.2-x86-64_gcc-8.4.0_musl.Linux-x86_64
           mkdir -p ./artifact/firmware
           mkdir -p ./artifact/package
