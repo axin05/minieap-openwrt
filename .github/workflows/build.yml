@@ -59,14 +59,14 @@ jobs:
 
       - name: Prepare Openwrt SDK
         run: |
-          cd ~/
           wget https://downloads.openwrt.org/releases/21.02.2/targets/x86/64/openwrt-sdk-21.02.2-x86-64_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+          
+      - name: Generate configuration file
+        run: |
+          ls
           tar -xf openwrt-sdk-21.02.2-x86-64_gcc-8.4.0_musl.Linux-x86_64.tar.xz
           mv /home/runner/work/minieap-openwrt/minieap-openwrt ~/openwrt-sdk-21.02.2-x86-64_gcc-8.4.0_musl.Linux-x86_64/package
           cd ~/openwrt-sdk-21.02.2-x86-64_gcc-8.4.0_musl.Linux-x86_64
-
-      - name: Generate configuration file
-        run: |
           make defconfig
 
       - name: Compile firmware
