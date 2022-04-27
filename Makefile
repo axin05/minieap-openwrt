@@ -20,17 +20,12 @@ define Package/$(PKG_NAME)
 	CATEGORY:=Network
 	TITLE:=Extensible 802.1x client with Ruijie v3 (v4) plugin
 	MAINTAINER:=updateing
-	URL:=https://github.com/ZenZRyan
+	URL:=https://github.com/AutoCONFIG
 endef
 
 define Package/$(PKG_NAME)/install
 	$(INSTALL_DIR) $(1)/usr/sbin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/minieap $(1)/usr/sbin/
-	$(INSTALL_DIR) $(1)/lib/netifd/proto
-	$(INSTALL_BIN) ./files/minieap.sh $(1)/lib/netifd/proto/
-	$(INSTALL_BIN) ./files/minieap.script $(1)/lib/netifd/
-	$(INSTALL_DIR) $(1)/etc/init.d
-	$(INSTALL_BIN) ./files/minieap $(1)/etc/init.d/
 endef
 
 $(eval $(call BuildPackage,$(PKG_NAME)))
